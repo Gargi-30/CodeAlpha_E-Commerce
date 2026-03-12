@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Register</title>
+</head>
+
+<body>
+
+<h2>Register</h2>
+
+<input id="name" placeholder="Name"><br><br>
+<input id="email" placeholder="Email"><br><br>
+<input id="password" type="password" placeholder="Password"><br><br>
+
+<button onclick="register()">Register</button>
+
+<p>Already have an account? <a href="login.html">Login</a></p>
+
+<script>
+async function register(){
+
+try{
+
+let name = document.getElementById("name").value
+let email = document.getElementById("email").value
+let password = document.getElementById("password").value
+
+let res = await fetch("http://localhost:5000/auth/register",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({name,email,password})
+})
+
+let data = await res.json()
+
+alert(data.message)
+
+window.location.href="login.html"
+
+}catch(err){
+
+console.error(err)
+alert("Registration failed")
+
+}
+
+}
+</script>
+
+</body>
+</html>
